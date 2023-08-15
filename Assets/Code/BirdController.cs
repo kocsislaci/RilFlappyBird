@@ -1,8 +1,12 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
+
+// This Class is responsible to
+// - Listen to the user input
+// - Make the bird jump
+// - Listen to collisions
+// - Send dying event to listeners
 
 public class BirdController : MonoBehaviour
 {

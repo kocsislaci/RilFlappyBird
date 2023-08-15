@@ -1,5 +1,9 @@
 using UnityEngine;
 
+// This Class is responsible to
+// - Micro-manage the children and components pipes
+// - Start movement
+
 public class PipeController : MonoBehaviour
 {
     private Transform _upperPipe;

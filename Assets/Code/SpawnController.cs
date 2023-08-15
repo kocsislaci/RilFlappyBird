@@ -1,6 +1,8 @@
-using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
+
+// This Class is responsible to
+// - Init the spawned pipes
 
 public class SpawnController: MonoBehaviour
 {
@@ -11,16 +13,16 @@ public class SpawnController: MonoBehaviour
     [SerializeField] private float gap = 2f;
     [SerializeField] private float heightOffset = 0f;
 
-    private GameObject pipePrefab;
+    private GameObject _pipePrefab;
 
     private void Awake()
     {
-        pipePrefab = Resources.Load<GameObject>("Prefabs/Pipe");
+        _pipePrefab = Resources.Load<GameObject>("Prefabs/Pipe");
     }
 
-    public void spawnAtDefault()
+    public void SpawnAtDefault()
     {
-        var pipe = Instantiate(pipePrefab, spawnPoint, new Quaternion());
+        var pipe = Instantiate(_pipePrefab, spawnPoint, new Quaternion());
         var pipeController = pipe.GetComponent<PipeController>();
         pipeController.SetPipeConfiguration(heightOffset, gap);
         pipeController.StartMovement(velocity);
@@ -28,7 +30,7 @@ public class SpawnController: MonoBehaviour
 
     public void SpawnAtRandom()
     {
-        var pipe = Instantiate(pipePrefab, spawnPoint, new Quaternion());
+        var pipe = Instantiate(_pipePrefab, spawnPoint, new Quaternion());
         var pipeController = pipe.GetComponent<PipeController>();
         pipeController.SetPipeConfiguration(heightOffset + (Random.value - 0.5f) * randomScale, gap);
         pipeController.StartMovement(velocity);

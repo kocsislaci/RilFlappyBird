@@ -2,16 +2,22 @@ using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 
+// This Class is responsible to
+// - Start the game (delayed)
+// - Listen to dying bird
+// - Shut down the game
+// - Spawn pipes
+
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private bool isRandom = true;
-    [SerializeField] private SpawnController _spawnController;
-    private GameObject birdPrefab;
-    private Coroutine spawning;
+    [SerializeField] private SpawnController spawnController;
+    private GameObject _birdPrefab;
+    private Coroutine _spawning;
     
     private void Awake()
     {
-        birdPrefab = Resources.Load<GameObject>("Prefabs/Bird");
+        _birdPrefab = Resources.Load<GameObject>("Prefabs/Bird");
     }
 
     private void Start()
@@ -27,9 +33,9 @@ public class GameManager : MonoBehaviour
             isDelayed = true;
             yield return new WaitForSeconds(1);
         }
-        var bird = Instantiate(birdPrefab, Vector3.zero, quaternion.identity);
+        var bird = Instantiate(_birdPrefab, Vector3.zero, quaternion.identity);
         bird.GetComponent<BirdController>().die.AddListener(GameOver);
-        spawning = StartCoroutine(Spawn());
+        _spawning = StartCoroutine(Spawn());
         yield return null;
     }
 
@@ -40,11 +46,11 @@ public class GameManager : MonoBehaviour
         {
             if (isRandom)
             {
-                _spawnController.SpawnAtRandom();
+                spawnController.SpawnAtRandom();
             }
             else
             {
-                _spawnController.spawnAtDefault();
+                spawnController.SpawnAtDefault();
             }
             yield return new WaitForSeconds(1);
         }
@@ -52,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        StopCoroutine(spawning);
+        StopCoroutine(_spawning);
         Debug.Log("Game over");
         Application.Quit();
     }
