@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpawnController spawnController;
     private GameObject _birdPrefab;
     private Coroutine _spawning;
-    
+
     private void Awake()
     {
         _birdPrefab = Resources.Load<GameObject>("Prefabs/Bird");
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
-    
+
     IEnumerator Spawn()
     {
         while (true)
