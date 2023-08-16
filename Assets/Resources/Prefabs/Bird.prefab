@@ -234,3 +234,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpVelocity: 1.4
+  die:
+    m_PersistentCalls:
+      m_Calls: []
