@@ -16,10 +16,15 @@ public class PipeController : MonoBehaviour
         _upperPipe = transform.GetChild(0);
         _lowerPipe = transform.GetChild(1);
     }
-    
+
     public void StartMovement(float velocity)
     {
         _rigidbody2D.velocity = Vector2.left * velocity;
+    }
+
+    public void ResetPosition()
+    {
+        this.transform.position = new Vector2(1f, 0f);
     }
 
     public void SetPipeConfiguration(float height, float gap)

@@ -14,16 +14,17 @@ public class BirdController : MonoBehaviour
   private Rigidbody2D _rigidbody2D;
   private PlayerInput _playerInput;
   private Animator animator;
-
   public UnityEvent die = new();
+
+
 
   private void Awake()
   {
     _rigidbody2D = GetComponent<Rigidbody2D>();
     _playerInput = GetComponent<PlayerInput>();
+    _playerInput.actions["Jump"].performed += OnJump;
     animator = this.GetComponent<Animator>();
     animator.speed = 0.5f;
-    _playerInput.actions["Jump"].performed += OnJump;
   }
 
   private void OnCollisionEnter2D(Collision2D other)
