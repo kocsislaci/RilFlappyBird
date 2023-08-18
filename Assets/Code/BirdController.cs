@@ -10,29 +10,41 @@ using UnityEngine.InputSystem;
 
 public class BirdController : MonoBehaviour
 {
-    [SerializeField] private float jumpVelocity;
-    private Rigidbody2D _rigidbody2D;
-    private PlayerInput _playerInput;
+  [SerializeField] private float jumpVelocity;
+  private Rigidbody2D _rigidbody2D;
+  private PlayerInput _playerInput;
+  private Animator animator;
+  public UnityEvent die = new();
 
-    public UnityEvent die = new();
 
-    private void Awake()
+
+  private void Awake()
+  {
+    _rigidbody2D = GetComponent<Rigidbody2D>();
+    _playerInput = GetComponent<PlayerInput>();
+    _playerInput.actions["Jump"].performed += OnJump;
+    animator = this.GetComponent<Animator>();
+    animator.speed = 0.5f;
+  }
+
+  private void OnCollisionEnter2D(Collision2D other)
+  {
+    if (other.gameObject.layer == LayerMask.NameToLayer("Obstacles"))
     {
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        _playerInput = GetComponent<PlayerInput>();
-        _playerInput.actions["Jump"].performed += OnJump;
+      die.Invoke();
     }
+  }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Obstacles"))
-        {
-            // die.Invoke();
-        }
-    }
+  private void OnJump(InputAction.CallbackContext context)
+  {
+    _rigidbody2D.velocity = Vector2.up * jumpVelocity;
+  }
 
-    private void OnJump(InputAction.CallbackContext context)
+  void update()
+  {
+    if (Input.GetButtonDown("space"))
     {
-        _rigidbody2D.velocity = Vector2.up * jumpVelocity;
+      animator.Play("fasz");
     }
+  }
 }
