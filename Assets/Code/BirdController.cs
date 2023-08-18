@@ -14,8 +14,8 @@ public class BirdController : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private PlayerInput _playerInput;
 
-    public UnityEvent die = new ();
-     
+    public UnityEvent die = new();
+
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -27,7 +27,7 @@ public class BirdController : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Obstacles"))
         {
-            die.Invoke();
+            // die.Invoke();
         }
     }
 
